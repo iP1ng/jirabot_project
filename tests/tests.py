@@ -1,11 +1,13 @@
 import unittest
 
 
-from src.jira import JiraConnect
-from src.cmd.my_cmd import CMD
+from packages.jira import JiraConnect
+from packages.cmd import CMD
 
 
-class TestStringMethods(unittest.TestCase):
+
+
+class TestJirabot(unittest.TestCase):
 
     def setUp(self):
         self.jira_credentials, self.db_credentials, self.task = CMD.get_args()
@@ -21,7 +23,7 @@ class TestStringMethods(unittest.TestCase):
                                                     self.jira_credentials[self.task[self.helpdesk_jira_task_name]["jira"]]["jirapassword"])
 
     def test_standart_jira_connection(self):
-        self.assertEqual(self.JiraConnection.current_user(), 'ASoldatov')
+        self.assertEqual(self.JiraConnection.current_user(), 'jirabot')
 
     def test_helpdesk_jira_connection(self):
         self.assertEqual(self.HelpdeskJiraConnection.current_user(), 'jirabot')
