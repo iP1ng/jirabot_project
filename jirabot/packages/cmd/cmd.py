@@ -44,5 +44,4 @@ class CMD:
 
     @staticmethod
     def signal_handler(signal, frame):
-        print('Wooops, you killed Jirabot :(')
         sys.exit(0)

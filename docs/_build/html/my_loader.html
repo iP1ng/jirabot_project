@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Поиск &mdash; Документация Jirabot 0.1</title>
+  <title>Запуск задач &mdash; Документация Jirabot 0.1</title>
   
 
   
@@ -34,8 +34,9 @@
   
         <link rel="index" title="Алфавитный указатель"
               href="genindex.html"/>
-        <link rel="search" title="Поиск" href="#"/>
-    <link rel="top" title="Документация Jirabot 0.1" href="index.html"/> 
+        <link rel="search" title="Поиск" href="search.html"/>
+    <link rel="top" title="Документация Jirabot 0.1" href="index.html"/>
+        <link rel="prev" title="Интерфейс командной строки" href="my_cmd.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -71,7 +72,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -88,12 +89,12 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">О проекте</a></li>
 <li class="toctree-l1"><a class="reference internal" href="my_database.html">Взаимодействие с БД</a></li>
 <li class="toctree-l1"><a class="reference internal" href="my_jira.html">Взаимодействие с JIRA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="my_cmd.html">Интерфейс командной строки</a></li>
-<li class="toctree-l1"><a class="reference internal" href="my_loader.html">Запуск задач</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Запуск задач</a></li>
 </ul>
 
             
@@ -138,10 +139,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Поиск</li>
+      <li>Запуск задач</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/my_loader.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -153,19 +158,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="module-packages.loader.loader">
+<span id="id1"></span><h1>Запуск задач<a class="headerlink" href="#module-packages.loader.loader" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Загрузка данных из конфигурационных файлов для многопоточного выполнения</p>
+<dl class="class">
+<dt id="packages.loader.loader.Workers">
+<em class="property">class </em><code class="descclassname">packages.loader.loader.</code><code class="descname">Workers</code><a class="reference internal" href="_modules/packages/loader/loader.html#Workers"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.loader.loader.Workers" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Методы класса извлекают информацию из конфигурационных файлов и запускают по одному процессу на каждый шаблон задачи</p>
+<dl class="method">
+<dt id="packages.loader.loader.Workers.run_worker">
+<code class="descname">run_worker</code><span class="sig-paren">(</span><em>task_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/loader/loader.html#Workers.run_worker"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.loader.loader.Workers.run_worker" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод, отвечающий за считывание конфигурационных файлов и запуск воркера</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>task_name</strong> – Шаблон задачи</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-  
-  <div id="search-results">
-  
-  </div>
+<dl class="method">
+<dt id="packages.loader.loader.Workers.run_workers">
+<code class="descname">run_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/loader/loader.html#Workers.run_workers"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.loader.loader.Workers.run_workers" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод, отвечающий за запуск и остановку воркеров</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
 
            </div>
            <div class="articleComments">
@@ -173,6 +206,13 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="my_cmd.html" class="btn btn-neutral" title="Интерфейс командной строки" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -212,7 +252,6 @@
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
       <script type="text/javascript" src="_static/translations.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -228,14 +267,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

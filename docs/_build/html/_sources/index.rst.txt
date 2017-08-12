@@ -10,6 +10,7 @@
     my_database
     my_jira
     my_cmd
+    my_loader
    
    
 
