@@ -1,0 +1,6 @@
+
+[jira]
+jira > 1.0.10
+
+[postgresql]
+psycopg2 > 2.7.3

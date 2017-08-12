@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Взаимодействие с JIRA &mdash; Документация Jirabot 0.1</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Алфавитный указатель"
+              href="genindex.html"/>
+        <link rel="search" title="Поиск" href="search.html"/>
+    <link rel="top" title="Документация Jirabot 0.1" href="index.html"/>
+        <link rel="next" title="Интерфейс командной строки" href="my_cmd.html"/>
+        <link rel="prev" title="Взаимодействие с БД" href="my_database.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Jirabot
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">О проекте</a></li>
+<li class="toctree-l1"><a class="reference internal" href="my_database.html">Взаимодействие с БД</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Взаимодействие с JIRA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="my_cmd.html">Интерфейс командной строки</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Jirabot</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Взаимодействие с JIRA</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/my_jira.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-packages.jira.jira">
+<span id="jira"></span><h1>Взаимодействие с JIRA<a class="headerlink" href="#module-packages.jira.jira" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Взаимодействие с Jira</p>
+<dl class="class">
+<dt id="packages.jira.jira.JiraConnect">
+<em class="property">class </em><code class="descclassname">packages.jira.jira.</code><code class="descname">JiraConnect</code><a class="reference internal" href="_modules/packages/jira/jira.html#JiraConnect"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraConnect" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Класс содержит метод подключения к серверу JiraConnect</p>
+<dl class="staticmethod">
+<dt id="packages.jira.jira.JiraConnect.connect_jira">
+<em class="property">static </em><code class="descname">connect_jira</code><span class="sig-paren">(</span><em>jira_server</em>, <em>jira_user</em>, <em>jira_password</em>, <em>jira_crt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/jira/jira.html#JiraConnect.connect_jira"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraConnect.connect_jira" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод подключения к сервису Jira через basic auth</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>jira_server</strong> – адрес сервера Jira</li>
+<li><strong>jira_user</strong> – логин пользователя в Jira</li>
+<li><strong>jira_password</strong> – пароль пользователя в Jira</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first last">Возвращает объект подключения к Jira</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="packages.jira.jira.JiraTasks">
+<em class="property">class </em><code class="descclassname">packages.jira.jira.</code><code class="descname">JiraTasks</code><span class="sig-paren">(</span><em>jiraconnection</em>, <em>dbconnection</em>, <em>task</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/jira/jira.html#JiraTasks"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraTasks" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Класс содержит методы для работы с задачами в Jira</p>
+<dl class="method">
+<dt id="packages.jira.jira.JiraTasks.do_task">
+<code class="descname">do_task</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/jira/jira.html#JiraTasks.do_task"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraTasks.do_task" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод выполнения задачи из шаблона с заданными интервалами по времени</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">ничего не возвращает</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="packages.jira.jira.JiraTasks.get_customfield">
+<code class="descname">get_customfield</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/jira/jira.html#JiraTasks.get_customfield"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraTasks.get_customfield" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод сопоставления названий кастомных полей их идентификаторам.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">Возвращает id кастомного поля, соответствующий кастомному полю из шаблона задачи</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="packages.jira.jira.JiraTasks.handle_issue_status">
+<code class="descname">handle_issue_status</code><span class="sig-paren">(</span><em>issue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/jira/jira.html#JiraTasks.handle_issue_status"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraTasks.handle_issue_status" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод работы с workflow. Переводит задачу в нужный статус.
+Для helpdesk и промышленной Jira workflow отличается.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>issue</strong> – Задача в Jira</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">ничего не возвращает</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="packages.jira.jira.JiraTasks.list_issues">
+<code class="descname">list_issues</code><span class="sig-paren">(</span><em>srch_filter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/packages/jira/jira.html#JiraTasks.list_issues"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#packages.jira.jira.JiraTasks.list_issues" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод для получения списка задач по заданному фильтру</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>srch_filter</strong> – фильтр поиска задач</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">возвращает список найденных задач</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="my_cmd.html" class="btn btn-neutral float-right" title="Интерфейс командной строки" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="my_database.html" class="btn btn-neutral" title="Взаимодействие с БД" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Anatoly Soldatov.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

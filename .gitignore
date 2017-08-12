@@ -1,0 +1,13 @@
+# ignore all logs
+*.log
+
+# ignore all config files
+*.json
+
+# ignore all specific per user data
+tasks/
+certificates/
+
+# ignore pycharm files
+/.idea
+/__pycache__

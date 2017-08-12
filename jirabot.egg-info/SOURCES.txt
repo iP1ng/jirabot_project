@@ -1,0 +1,9 @@
+setup.py
+jirabot/jirabot.py
+jirabot.egg-info/PKG-INFO
+jirabot.egg-info/SOURCES.txt
+jirabot.egg-info/dependency_links.txt
+jirabot.egg-info/entry_points.txt
+jirabot.egg-info/requires.txt
+jirabot.egg-info/top_level.txt
+jirabot/logs/__init__.py

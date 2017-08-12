@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jirabot.packages.jira.jira &mdash; Документация Jirabot 0.1</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Алфавитный указатель"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Поиск" href="../../../../search.html"/>
+    <link rel="top" title="Документация Jirabot 0.1" href="../../../../index.html"/>
+        <link rel="up" title="Код модуля" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Jirabot
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">О проекте</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../my_database.html">Взаимодействие с БД</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../my_jira.html">Взаимодействие с JIRA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../my_cmd.html">Интерфейс командной строки</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Jirabot</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Код модуля</a> &raquo;</li>
+        
+      <li>jirabot.packages.jira.jira</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Исходный код jirabot.packages.jira.jira</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Интерфейс взаимодействия с Jira</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">jira</span> <span class="k">import</span> <span class="n">JIRA</span>
+<span class="kn">from</span> <span class="nn">jira.exceptions</span> <span class="k">import</span> <span class="n">JIRAError</span>
+
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+
+<div class="viewcode-block" id="JiraConnect"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraConnect">[документация]</a><span class="k">class</span> <span class="nc">JiraConnect</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Класс содержит метод подключения к серверу JiraConnect</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="JiraConnect.connect_jira"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraConnect.connect_jira">[документация]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">connect_jira</span><span class="p">(</span><span class="n">jira_server</span><span class="p">,</span> <span class="n">jira_user</span><span class="p">,</span> <span class="n">jira_password</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Метод подключения к сервису Jira через basic auth</span>
+
+<span class="sd">        :param jira_server: адрес сервера Jira</span>
+<span class="sd">        :param jira_user: логин пользователя в Jira</span>
+<span class="sd">        :param jira_password: пароль пользователя в Jira</span>
+<span class="sd">        :return: Возвращает объект подключения к Jira</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Для подключения без верификации сертификата раскомментировать эту строку</span>
+            <span class="c1"># jira_options = {&#39;server&#39;: jira_server, &#39;verify&#39;: False}</span>
+
+            <span class="n">cert_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;src/certificates/helpdesk.ca-bundle&quot;</span><span class="p">)</span>
+            <span class="n">jira_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;server&#39;</span><span class="p">:</span> <span class="n">jira_server</span><span class="p">,</span>
+                            <span class="s1">&#39;verify&#39;</span><span class="p">:</span> <span class="n">cert_path</span><span class="p">}</span>
+            <span class="c1">#jira_options = {&#39;server&#39;: jira_server, &#39;verify&#39;: False}</span>
+            <span class="n">jira</span> <span class="o">=</span> <span class="n">JIRA</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">jira_options</span><span class="p">,</span>
+                        <span class="n">basic_auth</span><span class="o">=</span><span class="p">(</span><span class="n">jira_user</span><span class="p">,</span>
+                                    <span class="n">jira_password</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">jira</span>
+        <span class="k">except</span> <span class="n">JIRAError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to connect to Jira server: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="p">,))</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
+
+
+<div class="viewcode-block" id="JiraTasks"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraTasks">[документация]</a><span class="k">class</span> <span class="nc">JiraTasks</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Класс содержит методы для работы с задачами в Jira</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jiraconnection</span><span class="p">,</span> <span class="n">dbconnection</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Конструктор класса</span>
+
+<span class="sd">        :param jiraconnection: Объект подключения к серверу Jira</span>
+<span class="sd">        :param dbconnection: Объект подключения к серверу БД</span>
+<span class="sd">        :param task: Шаблон задачи в Jira</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span> <span class="o">=</span> <span class="n">jiraconnection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dbconnection</span> <span class="o">=</span> <span class="n">dbconnection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+
+
+<div class="viewcode-block" id="JiraTasks.list_issues"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraTasks.list_issues">[документация]</a>    <span class="k">def</span> <span class="nf">list_issues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">srch_filter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Метод для получения списка задач по заданному фильтру</span>
+
+<span class="sd">        :param srch_filter: фильтр поиска задач</span>
+<span class="sd">        :return: возвращает список найденных задач</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">issues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">search_issues</span><span class="p">(</span><span class="n">srch_filter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">issues</span></div>
+
+
+<div class="viewcode-block" id="JiraTasks.handle_issue_status"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraTasks.handle_issue_status">[документация]</a>    <span class="k">def</span> <span class="nf">handle_issue_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">issue</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Метод работы с workflow. Переводит задачу в нужный статус.</span>
+<span class="sd">        Для helpdesk и промышленной Jira workflow отличается.</span>
+
+<span class="sd">        :param issue: Задача в Jira</span>
+<span class="sd">        :return: ничего не возвращает</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;jira&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;helpdesk&quot;</span><span class="p">:</span>
+            <span class="c1"># 11 и 91 - &#39;В работе&#39;</span>
+            <span class="c1"># 21 - &#39;Выполнено&#39;</span>
+            <span class="n">tr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">find_transitionid_by_name</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;В работе&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">tr</span> <span class="o">==</span> <span class="s1">&#39;11&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">transition_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">transition_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;21&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">tr</span> <span class="o">==</span> <span class="s1">&#39;91&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">transition_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;91&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">transition_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;21&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">transition_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;21&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># transition to &quot;Resolved&quot; and assign to reporter</span>
+            <span class="n">allfields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">allfields</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Reporter&quot;</span><span class="p">:</span>
+                    <span class="n">fieldid</span> <span class="o">=</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+                    <span class="n">reporter</span> <span class="o">=</span> <span class="n">issue</span><span class="o">.</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="n">fieldid</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="c1"># Get all avaliable transitions like id 5 is Resolved</span>
+            <span class="c1"># https://jira.lanit.ru/rest/api/2/project/HCSINT/statuses</span>
+            <span class="c1"># TODO make it automatic with find_transitionid_by_name function</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">transition_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="n">assignee</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">reporter</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="JiraTasks.get_customfield"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraTasks.get_customfield">[документация]</a>    <span class="k">def</span> <span class="nf">get_customfield</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Метод сопоставления названий кастомных полей их идентификаторам.</span>
+
+<span class="sd">        :return: Возвращает id кастомного поля, соответствующий кастомному полю из шаблона задачи</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">allfields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">allfields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="JiraTasks.do_task"><a class="viewcode-back" href="../../../../my_jira.html#jirabot.packages.jira.jira.JiraTasks.do_task">[документация]</a>    <span class="k">def</span> <span class="nf">do_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Метод выполнения задачи из шаблона с заданными интервалами по времени</span>
+
+<span class="sd">        :return: ничего не возвращает</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">issues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">search_issues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">])</span>
+            <span class="n">fieldid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_customfield</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">issues</span><span class="p">:</span>
+                <span class="n">field_value</span> <span class="o">=</span> <span class="p">((</span><span class="n">issue</span><span class="o">.</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;fields&#39;</span><span class="p">][</span><span class="n">fieldid</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),)</span>
+                <span class="n">query_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dbconnection</span><span class="o">.</span><span class="n">get_from_db</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">],</span> <span class="n">field_value</span><span class="p">)</span>
+
+                <span class="n">jira_comment</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">query_result</span><span class="p">)):</span>
+                    <span class="n">jira_comment</span> <span class="o">=</span> <span class="n">jira_comment</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">query_result</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">myjira</span><span class="o">.</span><span class="n">add_comment</span><span class="p">(</span><span class="n">issue</span><span class="p">,</span> <span class="n">jira_comment</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">handle_issue_status</span><span class="p">(</span><span class="n">issue</span><span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;periodicity&quot;</span><span class="p">])</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Anatoly Soldatov.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
